@@ -371,7 +371,7 @@ class arrays
             }
         } else {
             if (is_string($keys)) {
-                $_key = $keys[0] == '@' ? str_replace_once('@', '', $keys) : '';
+                $_key = $keys[0] == '@' ? self::str_replace_once('@', '', $keys) : '';
                 foreach ($data as $k => $v) {
                     if ($_key) {
                         $result[$v[$_key]] = $v;
@@ -426,5 +426,21 @@ class arrays
             }
         }
         return $result;
+    }
+
+    /**
+     * 仅执行第一次匹配替换
+     * @param string $search 查找的字符串
+     * @param string $replace 执行替换的字符串
+     * @param string $subject 原字符串
+     * @return string
+     */
+    public static function str_replace_once($search, $replace, $subject)
+    {
+        $pos = strpos($subject, $search);
+        if ($pos === false) {
+            return $subject;
+        }
+        return substr_replace($subject, $replace, $pos, strlen($search));
     }
 }
