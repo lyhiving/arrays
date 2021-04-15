@@ -291,6 +291,26 @@ class arrays
     }
 
     /**
+     * 冒泡用法
+     */
+    public static function getpao($arr, $p)
+    {
+        $len = count($arr);
+        //设置一个空数组 用来接收冒出来的泡
+        //该层循环控制 需要冒泡的轮数
+        for ($i = 1; $i < $len; $i++) { //该层循环用来控制每轮 冒出一个数 需要比较的次数
+            for ($k = 0; $k < $len - $i; $k++) {
+                if ($arr[$k][$p] > $arr[$k + 1][$p]) {
+                    $tmp = $arr[$k + 1];
+                    $arr[$k + 1] = $arr[$k];
+                    $arr[$k] = $tmp;
+                }
+            }
+        }
+        return $arr;
+    }
+
+    /**
      * @param array $data 原始数组
      * @param array $keys 过滤key
      * @param bool $ismulti 是否是多维数组
