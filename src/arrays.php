@@ -374,7 +374,12 @@ class arrays
                 $_key = $keys[0] == '@' ? self::str_replace_once('@', '', $keys) : '';
                 foreach ($data as $k => $v) {
                     if ($_key) {
-                        $result[$v[$_key]] = $v;
+                        if (strpos($_key, ':')) {
+                            $_keys = explode(":", $_key);
+                            $result[$v[$_keys[0]]] = $v[$_keys[1]];
+                        }else{
+                            $result[$v[$_key]] = $v;
+                        }
                     } else {
                         $result[] = $v[$keys];
                     }
