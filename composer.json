@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "lyhiving\\debug\\": "src/"
+      "lyhiving\\arrays\\": "src/"
     }
   },
   "minimum-stability": "dev"
