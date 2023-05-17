@@ -315,6 +315,11 @@ class arrays
      * @param array $keys 过滤key
      * @param bool $ismulti 是否是多维数组
      * @return mixed
+     * 
+     * 使用方式：
+     * arrays::cleanout($categories, '@parent_id', true);
+     * arrays::cleanout($categories, '@parent_id:[]', true);
+     * arrays::cleanout($categories, '@parent_id:[id]', true);
      */
     public static function cleanout($data, $keys, $ismulti = false, $func = null)
     {
@@ -376,7 +381,16 @@ class arrays
                     if ($_key) {
                         if (strpos($_key, ':')) {
                             $_keys = explode(":", $_key);
-                            $result[$v[$_keys[0]]] = $v[$_keys[1]];
+                            if(isset($_keys[1]) && $_keys[1][0]=='['){
+                                if($_keys[1]=='[]'){
+                                    $result[$v[$_keys[0]]][] = $v;
+                                }else{
+                                    $__key = str_replace(array('[',']'),array('',''), $_keys[1]);
+                                    $result[$v[$_keys[0]]][] = $v[$__key];
+                                }
+                            }else{
+                                $result[$v[$_keys[0]]] = $v[$_keys[1]];
+                            }
                         }else{
                             $result[$v[$_key]] = $v;
                         }
